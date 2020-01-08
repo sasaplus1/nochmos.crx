@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
     "declaration": true,
+    "jsx": "react",
+    "jsxFactory": "h",
     "module": "CommonJS",
     "newLine": "lf",
     "outDir": "dist",
