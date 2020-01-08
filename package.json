@@ -10,6 +10,7 @@
   },
   "private": true,
   "scripts": {
-    "fixpack": "npx fixpack"
+    "fixpack": "npx fixpack",
+    "lint": "eslint --cache --ext .js,.ts ."
   }
 }
