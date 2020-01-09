@@ -32,7 +32,7 @@
     "build:manifest": "node -p 'JSON.stringify(require(`./src/manifest`), null, 2)' > ./lib/manifest.json",
     "build:ts": "rollup -c",
     "fixpack": "npx fixpack",
-    "lint": "eslint --cache --ext .js,.ts .",
+    "lint": "eslint --cache --ext .js,.jsx,.ts,.tsx .",
     "watch": "run-p -l watch:*",
     "watch:ts": "tsc -w"
   }
