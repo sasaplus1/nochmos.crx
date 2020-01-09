@@ -25,7 +25,7 @@ module.exports = {
       plugins: ['@typescript-eslint'],
       settings: {
         node: {
-          tryExtensions: ['.ts', '.js', '.json', '.node']
+          tryExtensions: ['.tsx', '.ts', '.jsx', '.js', '.json', '.node']
         },
         react: {
           pragma: 'h'
