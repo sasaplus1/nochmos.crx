@@ -5,8 +5,8 @@
     "jsxFactory": "h",
     "module": "CommonJS",
     "newLine": "lf",
-    "outDir": "dist",
-    "rootDir": ".",
+    "outDir": "./lib",
+    "rootDir": "./src",
     "sourceMap": true,
     "strict": true,
     "target": "ESNext"
