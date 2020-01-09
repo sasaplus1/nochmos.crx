@@ -20,7 +20,14 @@
   },
   "private": true,
   "scripts": {
+    "build": "run-s build:*",
+    "build:css": "cp ./src/*.css ./lib",
+    "build:html": "cp ./src/*.html ./lib",
+    "build:manifest": "node -p 'JSON.stringify(require(`./src/manifest`), null, 2)' > ./lib/manifest.json",
+    "build:ts": "tsc",
     "fixpack": "npx fixpack",
-    "lint": "eslint --cache --ext .js,.ts ."
+    "lint": "eslint --cache --ext .js,.ts .",
+    "watch": "run-p -l watch:*",
+    "watch:ts": "tsc -w"
   }
 }
