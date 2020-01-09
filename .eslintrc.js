@@ -31,6 +31,13 @@ module.exports = {
           pragma: 'h'
         }
       }
+    },
+    {
+      files: ['rollup.config.js'],
+      rules: {
+        'node/no-unpublished-import': 'off',
+        'node/no-unsupported-features/es-syntax': 'off'
+      }
     }
   ],
   parserOptions: {
