@@ -1,7 +1,6 @@
 {
   "dependencies": {
-    "fuse.js": "^3.4.6",
-    "preact": "^10.2.1"
+    "fuse.js": "^3.4.6"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^7.0.0",
