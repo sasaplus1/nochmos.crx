@@ -1,0 +1,69 @@
+@charset "utf-8";
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 600px;
+}
+
+.main {
+}
+
+.input-area {
+}
+
+.input-area__input {
+  border: none;
+  font-size: 30px;
+  margin: 0;
+  outline: none;
+  padding: 8px;
+  width: 100vw;
+}
+
+.candidates-area {
+}
+
+.candidates-area__list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.candidates-area__item {
+  align-items: center;
+  display: flex;
+}
+
+.candidates-area__item.select {
+  background-color: red;
+}
+
+.item {
+  cursor: pointer;
+  padding: 8px;
+}
+
+.item__favicon {
+  min-height: 32px;
+  min-width: 32px;
+}
+
+.item__keys {
+  overflow: scroll;
+  margin-left: 8px;
+}
+
+.item__title {
+  font-size: 18px;
+  line-height: 1;
+  overflow: scroll;
+  white-space: nowrap;
+}
+
+.item__url {
+  color: #999;
+  line-height: 1;
+  overflow: scroll;
+  white-space: nowrap;
+}
