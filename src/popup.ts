@@ -36,6 +36,11 @@ function createCandidateElement(props: {
   }
 
   li.addEventListener('click', () => {
+    if (!Number.isSafeInteger(id)) {
+      // create tab
+      chrome.tabs.create({ url, active: true });
+    }
+
     chrome.tabs.get(
       typeof id !== 'number' ? parseInt(id, 10) : id,
       (tab: chrome.tabs.Tab) => {
