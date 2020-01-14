@@ -20,8 +20,8 @@ module.exports = {
   commands: {
     _execute_browser_action: {
       suggested_key: {
-        default: 'Ctrl+T',
-        mac: 'MacCtrl+T'
+        default: 'Ctrl+J',
+        mac: 'MacCtrl+J'
       },
       description: 'open popup'
     }
