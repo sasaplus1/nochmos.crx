@@ -35,6 +35,10 @@
     "fixpack": "npx fixpack",
     "lint": "eslint --cache --ext .js,.jsx,.ts,.tsx .",
     "watch": "run-p -l watch:*",
-    "watch:ts": "tsc -w"
+    "watch:css": "onchange -v 'src/*.css' -- run-s build:css",
+    "watch:html": "onchange -v 'src/*.html' -- run-s build:html",
+    "watch:json": "onchange -v 'src/manifest.js' -- run-s build:json",
+    "watch:png": "onchange -v 'src/*.png' -- run-s build:png",
+    "watch:ts": "onchange -v 'src/*.{ts,tsx}' -- run-s build:ts"
   }
 }
