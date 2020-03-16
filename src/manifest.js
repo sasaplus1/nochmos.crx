@@ -2,7 +2,7 @@ module.exports = {
   manifest_version: 2,
   name: 'nochmos',
   version: '0.0.0',
-  description: '',
+  description: 'fuzzy find from some sources',
   icons: {
     '16': 'icon_32.png',
     '48': 'icon_32.png',
@@ -20,8 +20,7 @@ module.exports = {
   commands: {
     _execute_browser_action: {
       suggested_key: {
-        default: 'Ctrl+J',
-        mac: 'MacCtrl+J'
+        default: 'Alt+Shift+P'
       },
       description: 'open popup'
     }

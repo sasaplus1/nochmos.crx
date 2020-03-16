@@ -1,3 +1,3 @@
 # nochmos.crx
 
-fuzzy finder WebExtension
+fuzzy find from some sources
