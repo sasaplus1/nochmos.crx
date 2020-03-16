@@ -110,8 +110,9 @@ dist
 
 ### nochmos.crx
 
-dist/*
-!dist/.gitkeep
+self-catering.zip
+
+.stylelintcache
 
 lib/*
 !lib/.gitkeep
