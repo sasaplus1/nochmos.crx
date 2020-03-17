@@ -24,6 +24,7 @@ module.exports = {
       plugins: ['@typescript-eslint'],
       settings: {
         node: {
+          allowModules: ['preact'],
           tryExtensions: ['.tsx', '.ts', '.jsx', '.js', '.json', '.node']
         },
         react: {
