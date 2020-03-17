@@ -38,6 +38,7 @@
     "build:json": "node -p 'JSON.stringify(require(`./src/manifest`), null, 2)' > ./lib/manifest.json",
     "build:png": "imagemin --out-dir=./lib --plugin=pngquant ./src/*.png",
     "build:ts": "rollup -c",
+    "check-types": "tsc --jsx react --incremental --noEmit",
     "fix": "eslint --cache --ext .js,.jsx,.ts,.tsx --fix .",
     "fixpack": "npx fixpack",
     "lint": "eslint --cache --ext .js,.jsx,.ts,.tsx .",
@@ -48,6 +49,6 @@
     "watch:html": "onchange -v 'src/*.html' -- run-s build:html",
     "watch:json": "onchange -v 'src/manifest.js' -- run-s build:json",
     "watch:png": "onchange -v 'src/*.png' -- run-s build:png",
-    "watch:ts": "onchange -v 'src/*.{ts,tsx}' -- run-s build:ts"
+    "watch:ts": "onchange -v 'src/**/*.{ts,tsx}' -- run-s build:ts"
   }
 }
