@@ -7,6 +7,8 @@
     "@rollup/plugin-commonjs": "^11.0.1",
     "@rollup/plugin-node-resolve": "^7.0.0",
     "@rollup/plugin-typescript": "^2.1.0",
+    "@storybook/addon-actions": "^5.3.17",
+    "@storybook/addon-knobs": "^5.3.17",
     "@storybook/preact": "^5.3.17",
     "@storybook/preset-typescript": "^2.1.0",
     "@types/chrome": "^0.0.91",
