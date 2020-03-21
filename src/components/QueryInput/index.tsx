@@ -2,7 +2,7 @@ import { h, Component, createRef } from 'preact';
 
 export type Props = {
   onInput: h.JSX.GenericEventHandler<HTMLInputElement>;
-  onKeyDown: h.JSX.GenericEventHandler<HTMLInputElement>;
+  onKeyDown: h.JSX.KeyboardEventHandler<HTMLInputElement>;
 };
 
 export default class QueryInput extends Component<Props> {
