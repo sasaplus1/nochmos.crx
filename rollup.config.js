@@ -4,7 +4,7 @@ import typescript from '@rollup/plugin-typescript';
 
 export default [
   {
-    input: './src/popup.ts',
+    input: './src/popup.tsx',
     output: {
       file: './lib/popup.js',
       format: 'iife',
