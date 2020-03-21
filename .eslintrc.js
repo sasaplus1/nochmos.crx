@@ -22,6 +22,9 @@ module.exports = {
       files: ['**/*.ts', '**/*.tsx'],
       parser: '@typescript-eslint/parser',
       plugins: ['@typescript-eslint'],
+      rules: {
+        '@typescript-eslint/explicit-function-return-type': 'off'
+      },
       settings: {
         node: {
           allowModules: ['preact'],
