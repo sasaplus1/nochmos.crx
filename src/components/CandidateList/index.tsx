@@ -1,5 +1,5 @@
 import { h } from 'preact';
-import * as cx from 'classnames';
+import cx from 'classnames';
 
 export type Candidate = {
   iconUrlSrcSet: string;
