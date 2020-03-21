@@ -27,7 +27,12 @@ module.exports = {
       },
       settings: {
         node: {
-          allowModules: ['preact'],
+          allowModules: [
+            '@storybook/addon-actions',
+            '@storybook/addon-knobs',
+            'classnames',
+            'preact'
+          ],
           tryExtensions: ['.tsx', '.ts', '.jsx', '.js', '.json', '.node']
         },
         react: {
