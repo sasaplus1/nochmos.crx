@@ -30,7 +30,6 @@ module.exports = {
           allowModules: [
             '@storybook/addon-actions',
             '@storybook/addon-knobs',
-            'classnames',
             'preact'
           ],
           tryExtensions: ['.tsx', '.ts', '.jsx', '.js', '.json', '.node']
