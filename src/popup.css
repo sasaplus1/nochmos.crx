@@ -6,13 +6,12 @@ body {
   width: 600px;
 }
 
-.main {
+/*
+.PopupPage {
 }
+*/
 
-.input-area {
-}
-
-.input-area__input {
+.QueryInput {
   border: none;
   font-size: 30px;
   margin: 0;
@@ -21,49 +20,44 @@ body {
   width: 100vw;
 }
 
-.candidates-area {
-}
-
-.candidates-area__list {
+.CandidateList {
   list-style-type: none;
   margin: 0;
   padding: 0;
-}
 
-.candidates-area__item {
-  align-items: center;
-  display: flex;
-}
+  & .Candidate {
+    align-items: center;
+    display: flex;
+    cursor: pointer;
+    padding: 8px;
+  }
 
-.candidates-area__item.select {
-  background-color: red;
-}
+  & .Candidate.Select {
+    background-color: red;
+  }
 
-.item {
-  cursor: pointer;
-  padding: 8px;
-}
+  & .Icon {
+    min-height: 32px;
+    min-width: 32px;
+  }
 
-.item__favicon {
-  min-height: 32px;
-  min-width: 32px;
-}
+  & .Informations {
+    overflow: scroll;
+    margin-left: 8px;
+    flex-grow: 1;
+  }
 
-.item__keys {
-  overflow: scroll;
-  margin-left: 8px;
-}
+  & .Title {
+    font-size: 18px;
+    line-height: 1;
+    overflow: scroll;
+    white-space: nowrap;
+  }
 
-.item__title {
-  font-size: 18px;
-  line-height: 1;
-  overflow: scroll;
-  white-space: nowrap;
-}
-
-.item__url {
-  color: #999;
-  line-height: 1;
-  overflow: scroll;
-  white-space: nowrap;
+  & .Url {
+    color: #999;
+    line-height: 1;
+    overflow: scroll;
+    white-space: nowrap;
+  }
 }

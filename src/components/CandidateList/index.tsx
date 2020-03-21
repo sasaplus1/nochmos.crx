@@ -34,7 +34,7 @@ export default function CandidateList(props: Props) {
               width="32"
               height="32"
             />
-            <div className="Infomations">
+            <div className="Informations">
               <div className="Title">{title}</div>
               <div className="Url">{url}</div>
             </div>
