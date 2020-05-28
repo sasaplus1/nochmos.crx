@@ -8,6 +8,10 @@ module.exports = {
     '48': 'icon_32.png',
     '128': 'icon_32.png'
   },
+  background: {
+    persistent: false,
+    scripts: ['background.js']
+  },
   browser_action: {
     default_icon: {
       '16': 'icon_32.png',
@@ -21,8 +25,7 @@ module.exports = {
     _execute_browser_action: {
       suggested_key: {
         default: 'Alt+Shift+P'
-      },
-      description: 'open popup'
+      }
     }
   },
   permissions: ['bookmarks', 'history', 'tabs', 'topSites']

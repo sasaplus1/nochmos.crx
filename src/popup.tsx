@@ -1,193 +1,228 @@
-import Fuse from 'fuse.js';
+import * as Comlink from 'comlink';
 import { h, render } from 'preact';
+import { useCallback, useEffect, useReducer, useState } from 'preact/hooks';
+
+import candidatesReducer, {
+  Candidate,
+  initialState,
+  updateCandidates,
+  updateSelectedCandidateAction
+} from './modules/candidates';
 
 import PopupPage from './components/PopupPage/index';
 
-const store = {
-  map: new Map(),
-  selectIndex: 0
-};
-
-//------------------------------------------------------------------------------
-
-// function createCandidateElement(props: {
-//   favIconUrl: string;
-//   id: number;
-//   isSelect: boolean;
-//   title: string;
-//   url: string;
-// }): HTMLLIElement {
-//   const { favIconUrl = '', id, isSelect, title, url } = props;
-//
-//   const htmlElements = [
-//     `<img class="item__favicon" src="${favIconUrl}" width="32" height="32">`,
-//     `<div class="item__keys">`,
-//     `<div class="item__title">${title}</div>`,
-//     `<div class="item__url">${url}</div>`,
-//     `</div>`
-//   ];
-//
-//   const html = htmlElements.join('');
-//
-//   const li = document.createElement('li');
-//
-//   li.insertAdjacentHTML('afterbegin', html);
-//   li.classList.add('candidates-area__item', 'item');
-//
-//   if (isSelect) {
-//     li.classList.add('select');
-//   }
-//
-//   li.addEventListener('click', () => {
-//     if (!Number.isSafeInteger(id)) {
-//       // create tab
-//       chrome.tabs.create({ url, active: true });
-//     }
-//
-//     chrome.tabs.get(
-//       typeof id !== 'number' ? parseInt(id, 10) : id,
-//       (tab: chrome.tabs.Tab) => {
-//         if (!tab || tab.id === chrome.tabs.TAB_ID_NONE) {
-//           // create tab
-//           chrome.tabs.create({ url, active: true });
-//         } else {
-//           chrome.windows.getCurrent(win => {
-//             // active tab
-//             if (win.id === tab.windowId) {
-//               chrome.tabs.update(tab.id as number, { active: true });
-//             } else {
-//               chrome.windows.update(tab.windowId, { focused: true }, () => {
-//                 chrome.tabs.update(tab.id as number, { active: true });
-//               });
-//             }
-//           });
-//         }
-//       }
-//     );
-//   });
-//
-//   return li;
-// }
-//
-// //------------------------------------------------------------------------------
-//
-// function onInput(event: Event): void {
-//   const text = (event.currentTarget as HTMLInputElement).value;
-//
-//   const list = Array.from(store.map.values()).flat(1);
-//
-//   const fuse = new Fuse(list, {
-//     findAllMatches: true,
-//     keys: ['title', 'url'],
-//     maxPatternLength: 9,
-//     shouldSort: true
-//   });
-//
-//   const result = fuse.search(text);
-//
-//   const candidates = document.getElementById('js-candidates');
-//
-//   const items = result
-//     .slice(0, 9)
-//     .map(candidate => createCandidateElement(candidate));
-//
-//   const fragment = document.createDocumentFragment();
-//
-//   for (const candidate of items) {
-//     fragment.appendChild(candidate);
-//   }
-//
-//   if (!candidates) {
-//     return;
-//   }
-//
-//   candidates.innerHTML = '';
-//   candidates.append(fragment);
-// }
-//
-// function onKeydown(event: KeyboardEvent): void {
-//   const { ctrlKey, key } = event;
-//
-//   if (key === 'Enter') {
-//     event.preventDefault();
-//
-//     const candidates = document.getElementById('js-candidates');
-//
-//     if (!candidates) {
-//       return;
-//     }
-//
-//     if (candidates.firstChild) {
-//       (candidates.firstChild as HTMLLIElement).click();
-//     }
-//   }
-//
-//   if (ctrlKey && key === 'n') {
-//     event.preventDefault();
-//     store.selectIndex += 1;
-//   }
-//
-//   if (ctrlKey && key === 'p') {
-//     event.preventDefault();
-//     store.selectIndex -= 1;
-//   }
-// }
+import { OpenUrlAction } from './background';
 
 /**
- * (re)render popup page
+ * Web Workers for fuzzy find processing
  */
-function renderPopup() {
-  const root = document.getElementById('js-root');
+const workers: Set<Worker> = new Set();
 
-  if (root !== null) {
-    render(
-      <PopupPage
-        candidateMaxCount={9}
-        candidates={[]}
-        onClickCandidate={console.log.bind(console)}
-        onInputQuery={console.log.bind(console)}
-        onKeyDownInInput={console.log.bind(console)}
-      />,
-      root
-    );
+/**
+ * open URL
+ *
+ * @param data
+ * @param data.url
+ */
+async function openUrl(url: string) {
+  const openUrlAction: OpenUrlAction = {
+    type: 'open_url',
+    payload: {
+      url
+    }
+  };
+
+  await new Promise(resolve =>
+    chrome.runtime.sendMessage(openUrlAction, resolve)
+  );
+}
+
+/**
+ * get previous candidate at index
+ *
+ * @param currentCandidate
+ * @param candidates
+ * @return candidate
+ */
+function getPrevCandidate(
+  currentCandidate: Candidate,
+  candidates: Candidate[]
+) {
+  const index = candidates.findIndex(
+    candidate => candidate.id === currentCandidate.id
+  );
+
+  if (index <= 0) {
+    return currentCandidate;
   }
+
+  return candidates[index - 1];
+}
+
+/**
+ * get next candidate at index
+ *
+ * @param currentCandidate
+ * @param candidates
+ * @return candidate
+ */
+function getNextCandidate(
+  currentCandidate: Candidate,
+  candidates: Candidate[]
+) {
+  const index = candidates.findIndex(
+    candidate => candidate.id === currentCandidate.id
+  );
+
+  if (index >= candidates.length) {
+    return currentCandidate;
+  }
+
+  return candidates[index + 1];
+}
+
+/**
+ * root component
+ */
+function Popup() {
+  const [state, dispatch] = useReducer(candidatesReducer, initialState);
+
+  const { candidates, selectedCandidate } = state;
+
+  const [popupCandidates, setPopupCandidates] = useState(
+    candidates.slice(0, 9)
+  );
+
+  useEffect(function() {
+    updateCandidates(dispatch);
+  }, []);
+
+  const onClickCandidate = useCallback(function(candidate: Candidate) {
+    const { url } = candidate;
+
+    openUrl(url).then(function() {
+      window.close();
+    });
+  }, []);
+
+  const onInputQuery = useCallback(
+    async function(event: h.JSX.TargetedEvent<HTMLInputElement>) {
+      const text = event.currentTarget.value;
+
+      // remove candidates if text is empty
+      if (text === '') {
+        setPopupCandidates([]);
+        dispatch(updateSelectedCandidateAction({ id: null }));
+
+        return;
+      }
+
+      // terminate if already worked
+      for (const worker of workers) {
+        worker.terminate();
+      }
+
+      workers.clear();
+
+      const worker = new Worker('./worker.js');
+
+      workers.add(worker);
+
+      const fuzzySearch = Comlink.wrap<import('./worker').exports>(worker);
+
+      const filteredCandidates = await fuzzySearch(candidates, text);
+      const slicedCandidates = filteredCandidates.slice(0, 9);
+
+      setPopupCandidates(slicedCandidates);
+
+      const [selectedCandidate] = slicedCandidates;
+
+      dispatch(updateSelectedCandidateAction(selectedCandidate));
+    },
+    [candidates]
+  );
+
+  const onKeyDownInInput = useCallback(
+    function(event: h.JSX.TargetedKeyboardEvent<HTMLInputElement>) {
+      const { altKey, ctrlKey, isComposing, key, metaKey, shiftKey } = event;
+
+      if (isComposing) {
+        return;
+      }
+
+      const isNeutral = !altKey && !ctrlKey && !metaKey && !shiftKey;
+
+      if (isNeutral && key === 'Enter') {
+        event.preventDefault();
+
+        if (selectedCandidate) {
+          const { url } = selectedCandidate;
+
+          openUrl(url).then(function() {
+            window.close();
+          });
+        }
+
+        return;
+      }
+
+      if ((ctrlKey && key === 'n') || (isNeutral && key === 'ArrowDown')) {
+        event.preventDefault();
+
+        if (!selectedCandidate) {
+          return;
+        }
+
+        const nextCandidate = getNextCandidate(
+          selectedCandidate,
+          popupCandidates
+        );
+
+        dispatch(updateSelectedCandidateAction(nextCandidate));
+
+        return;
+      }
+
+      if ((ctrlKey && key === 'p') || (isNeutral && key === 'ArrowUp')) {
+        event.preventDefault();
+
+        if (!selectedCandidate) {
+          return;
+        }
+
+        const prevCandidate = getPrevCandidate(
+          selectedCandidate,
+          popupCandidates
+        );
+
+        dispatch(updateSelectedCandidateAction(prevCandidate));
+
+        return;
+      }
+    },
+    [selectedCandidate, popupCandidates]
+  );
+
+  return (
+    <PopupPage
+      candidates={popupCandidates}
+      onClickCandidate={onClickCandidate}
+      onInputQuery={onInputQuery}
+      onKeyDownInInput={onKeyDownInInput}
+      selectedCandidate={selectedCandidate}
+    />
+  );
 }
 
 /**
  * entry point
  */
 function onDOMContentLoaded() {
-  // const input = document.getElementById('js-input');
+  const renderElement = document.getElementById('js-root');
 
-  // if (input) {
-  //   input.addEventListener('keydown', onKeydown, { passive: false });
-  //   input.addEventListener('input', onInput);
-  //   input.focus();
-  // }
-
-  renderPopup();
-
-  // get tabs
-  chrome.tabs.query({}, function(tabs) {
-    store.map.set('tabs', tabs);
-  });
-
-  // get histories
-  chrome.history.search({ text: '' }, function(historyItems) {
-    store.map.set('histories', historyItems);
-  });
-
-  // get bookmarks
-  chrome.bookmarks.search({ url: '' }, function(bookmarkTreeNodes) {
-    store.map.set('bookmarks', bookmarkTreeNodes);
-  });
-
-  // get most visited URLs
-  chrome.topSites.get(function(mostVisitedURLs) {
-    store.map.set('most-visited-urls', mostVisitedURLs);
-  });
+  if (renderElement !== null) {
+    render(<Popup />, renderElement);
+  }
 }
-
-//------------------------------------------------------------------------------
 
 document.addEventListener('DOMContentLoaded', onDOMContentLoaded);

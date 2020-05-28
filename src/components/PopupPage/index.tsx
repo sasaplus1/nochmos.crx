@@ -6,20 +6,20 @@ import CandidateList, {
 import QueryInput, { Props as QueryInputProps } from '../QueryInput/index';
 
 export type Props = {
-  candidateMaxCount: CandidateListProps['maxCount'];
   candidates: CandidateListProps['candidates'];
   onClickCandidate: CandidateListProps['onClick'];
   onInputQuery: QueryInputProps['onInput'];
   onKeyDownInInput: QueryInputProps['onKeyDown'];
+  selectedCandidate: CandidateListProps['selectedCandidate'];
 };
 
 export default function PopupPage(props: Props) {
   const {
-    candidateMaxCount,
     candidates,
     onClickCandidate,
     onInputQuery,
-    onKeyDownInInput
+    onKeyDownInInput,
+    selectedCandidate
   } = props;
 
   return (
@@ -27,8 +27,8 @@ export default function PopupPage(props: Props) {
       <QueryInput onInput={onInputQuery} onKeyDown={onKeyDownInInput} />
       <CandidateList
         candidates={candidates}
-        maxCount={candidateMaxCount}
         onClick={onClickCandidate}
+        selectedCandidate={selectedCandidate}
       />
     </div>
   );

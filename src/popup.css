@@ -1,18 +1,37 @@
 @charset "utf-8";
 
+:root {
+  @media (prefers-color-scheme: light) {
+    --theme-background-color: #fff;
+    --theme-color: #000;
+    --theme-title-color: #000;
+    --theme-url-color: #000;
+    --theme-select-background-color: #36f;
+    --theme-select-title-color: #fff;
+    --theme-select-url-color: #fff;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    --theme-background-color: #333;
+    --theme-color: #eee;
+    --theme-title-color: #eee;
+    --theme-url-color: #eee;
+    --theme-select-background-color: #3f51b5;
+    --theme-select-title-color: #eee;
+    --theme-select-url-color: #eee;
+  }
+}
+
 body {
   margin: 0;
   padding: 0;
   width: 600px;
 }
 
-/*
-.PopupPage {
-}
-*/
-
 .QueryInput {
+  background-color: var(--theme-background-color);
   border: none;
+  color: var(--theme-color);
   font-size: 30px;
   margin: 0;
   outline: none;
@@ -21,19 +40,26 @@ body {
 }
 
 .CandidateList {
+  background-color: var(--theme-background-color);
   list-style-type: none;
   margin: 0;
   padding: 0;
 
   & .Candidate {
     align-items: center;
-    display: flex;
+    appearance: none;
+    background-color: transparent;
+    border: none;
     cursor: pointer;
+    display: flex;
     padding: 8px;
+    text-align: left;
+    width: 100%;
   }
 
   & .Candidate.Select {
-    background-color: red;
+    background-color: var(--theme-select-background-color);
+    color: var(--theme-select-color);
   }
 
   & .Icon {
@@ -48,16 +74,25 @@ body {
   }
 
   & .Title {
+    color: var(--theme-title-color);
     font-size: 18px;
-    line-height: 1;
     overflow: scroll;
     white-space: nowrap;
+    line-height: 1.2;
+  }
+
+  & .Select .Title {
+    color: var(--theme-select-title-color);
   }
 
   & .Url {
-    color: #999;
-    line-height: 1;
+    color: var(--theme-url-color);
     overflow: scroll;
     white-space: nowrap;
+    line-height: 1.2;
+  }
+
+  & .Select .Url {
+    color: var(--theme-select-url-color);
   }
 }

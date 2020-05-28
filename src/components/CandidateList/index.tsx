@@ -1,43 +1,48 @@
 import { h } from 'preact';
 import cx from 'classnames';
 
-export type Candidate = {
-  iconUrlSrcSet: string;
-  isSelect: boolean;
-  title: string;
-  url: string;
-};
+import { Candidate } from '../../modules/candidates';
 
 export type Props = {
   candidates: Candidate[];
-  maxCount: number;
-  onClick: h.JSX.GenericEventHandler<HTMLLIElement>;
+  onClick: (
+    candidate: Candidate,
+    event: h.JSX.TargetedEvent<HTMLButtonElement, MouseEvent>
+  ) => void;
+  selectedCandidate: Candidate | null;
 };
 
 export default function CandidateList(props: Props) {
-  const { candidates, maxCount, onClick } = props;
+  const { candidates, onClick, selectedCandidate } = props;
+
+  const { id: selectedId } = selectedCandidate || { id: NaN };
 
   return (
     <ul className="CandidateList">
-      {candidates.slice(0, maxCount).map(function(candidate) {
-        const { iconUrlSrcSet, isSelect, title, url } = candidate;
+      {candidates.map(function(candidate) {
+        const { iconUrlSrcSet, id, kindIconUrl, title, url } = candidate;
 
         return (
-          <li
-            className={cx('Candidate', { Select: isSelect })}
-            key={iconUrlSrcSet + title + url}
-            onClick={onClick}
-          >
-            <img
-              className="Icon"
-              srcSet={iconUrlSrcSet}
-              width="32"
-              height="32"
-            />
-            <div className="Informations">
-              <div className="Title">{title}</div>
-              <div className="Url">{url}</div>
-            </div>
+          <li key={iconUrlSrcSet + kindIconUrl + title + url}>
+            <button
+              className={cx('Candidate', {
+                Select: id === selectedId
+              })}
+              type="button"
+              onClick={event => onClick(candidate, event)}
+            >
+              <img
+                className="Icon"
+                srcSet={iconUrlSrcSet}
+                width="32"
+                height="32"
+              />
+              {/*kindIconUrl*/}
+              <div className="Informations">
+                <div className="Title">{title}</div>
+                <div className="Url">{url}</div>
+              </div>
+            </button>
           </li>
         );
       })}

@@ -5,6 +5,10 @@
     "jsx": "react",
     "jsxFactory": "h",
     "incremental": true,
+    "lib": [
+      "dom",
+      "ES2019.Array"
+    ],
     "module": "ESNext",
     "moduleResolution": "Node",
     "newLine": "lf",
