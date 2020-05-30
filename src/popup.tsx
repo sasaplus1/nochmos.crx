@@ -21,8 +21,7 @@ const workers: Set<Worker> = new Set();
 /**
  * open URL
  *
- * @param data
- * @param data.url
+ * @param url
  */
 async function openUrl(url: string) {
   const openUrlAction: OpenUrlAction = {
