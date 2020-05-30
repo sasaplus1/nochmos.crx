@@ -12,26 +12,37 @@ export function Base() {
       candidates={object('candidates', [
         {
           iconUrlSrcSet: 'https://github.githubassets.com/favicon.ico',
-          isSelected: false,
+          id: 1,
+          kind: 'bookmarks',
           kindIconUrl: '',
           title: 'GitHub',
           url: 'https://github.com'
         },
         {
           iconUrlSrcSet: 'https://github.githubassets.com/favicon.ico',
-          isSelected: true,
+          id: 2,
+          kind: 'bookmarks',
           kindIconUrl: '',
           title: 'GitHub',
           url: 'https://github.com'
         },
         {
           iconUrlSrcSet: 'https://github.githubassets.com/favicon.ico',
-          isSelected: false,
+          id: 3,
+          kind: 'bookmarks',
           kindIconUrl: '',
           title: 'GitHub',
           url: 'https://github.com'
         }
       ])}
+      selectedCandidate={object('selectedCandidate', {
+        iconUrlSrcSet: 'https://github.githubassets.com/favicon.ico',
+        id: 2,
+        kind: 'bookmarks',
+        kindIconUrl: '',
+        title: 'GitHub',
+        url: 'https://github.com'
+      })}
       onClickCandidate={action('onClickCandidate')}
       onInputQuery={action('onInputQuery')}
       onKeyDownInInput={action('onKeyDownInInput')}
