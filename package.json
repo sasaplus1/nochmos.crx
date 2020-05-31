@@ -21,7 +21,7 @@
     "@storybook/addon-knobs": "^5.3.17",
     "@storybook/preact": "^5.3.17",
     "@storybook/preset-typescript": "^2.1.0",
-    "@types/chrome": "^0.0.91",
+    "@types/chrome": "^0.0.114",
     "@types/classnames": "^2.2.10",
     "@typescript-eslint/eslint-plugin": "^2.15.0",
     "@typescript-eslint/parser": "^2.15.0",

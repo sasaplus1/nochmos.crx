@@ -1476,12 +1476,13 @@
     telejson "^3.2.0"
     util-deprecate "^1.0.2"
 
-"@types/chrome@^0.0.91":
-  version "0.0.91"
-  resolved "https://registry.yarnpkg.com/@types/chrome/-/chrome-0.0.91.tgz#4b3996f55f344057e6a677c8366aa98080c6e380"
-  integrity sha512-vNvo9lJkp1AvViWrUwe1bxhoMwr5dRZWlgr1DTuaNkz97LsG56lDX1sceWeZir2gRACJ5vdHtoRdVAvm8C75Ug==
+"@types/chrome@^0.0.114":
+  version "0.0.114"
+  resolved "https://registry.yarnpkg.com/@types/chrome/-/chrome-0.0.114.tgz#8ceb33fa261f4b9e307fa7344ba8182d8d410d4e"
+  integrity sha512-i7qRr74IrxHtbnrZSKUuP5Uvd5EOKwlwJq/yp7+yTPihOXnPhNQO4Z5bqb1XTnrjdbUKEJicaVVbhcgtRijmLA==
   dependencies:
     "@types/filesystem" "*"
+    "@types/har-format" "*"
 
 "@types/classnames@^2.2.10":
   version "2.2.10"
@@ -1533,6 +1534,11 @@
     "@types/events" "*"
     "@types/minimatch" "*"
     "@types/node" "*"
+
+"@types/har-format@*":
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/@types/har-format/-/har-format-1.2.4.tgz#3275842095abb60d14b47fa798cc9ff708dab6d4"
+  integrity sha512-iUxzm1meBm3stxUMzRqgOVHjj4Kgpgu5w9fm4X7kPRfSgVRzythsucEN7/jtOo8SQzm+HfcxWWzJS0mJDH/3DQ==
 
 "@types/history@*":
   version "4.7.5"
