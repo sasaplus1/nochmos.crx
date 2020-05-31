@@ -33,7 +33,7 @@ export default function CandidateList(props: Props) {
             >
               <img
                 className="Icon"
-                srcSet={iconUrlSrcSet || 'fallback.svg'}
+                srcSet={`${iconUrlSrcSet}, fallback.svg`}
                 width="32"
                 height="32"
               />
