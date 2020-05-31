@@ -14,7 +14,6 @@ export function Base() {
           iconUrlSrcSet: 'https://github.githubassets.com/favicon.ico',
           id: 1,
           kind: 'bookmarks',
-          kindIconUrl: '',
           title: 'GitHub',
           url: 'https://github.com'
         },
@@ -22,7 +21,6 @@ export function Base() {
           iconUrlSrcSet: 'https://github.githubassets.com/favicon.ico',
           id: 2,
           kind: 'bookmarks',
-          kindIconUrl: '',
           title: 'GitHub',
           url: 'https://github.com'
         },
@@ -30,7 +28,6 @@ export function Base() {
           iconUrlSrcSet: 'https://github.githubassets.com/favicon.ico',
           id: 3,
           kind: 'bookmarks',
-          kindIconUrl: '',
           title: 'GitHub',
           url: 'https://github.com'
         }
@@ -40,7 +37,6 @@ export function Base() {
         iconUrlSrcSet: 'https://github.githubassets.com/favicon.ico',
         id: 2,
         kind: 'bookmarks',
-        kindIconUrl: '',
         title: 'GitHub',
         url: 'https://github.com'
       })}

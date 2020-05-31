@@ -13,7 +13,6 @@ export type Candidate = {
   iconUrlSrcSet: string;
   id: number;
   kind: CandidateKind;
-  kindIconUrl: string;
   title: string;
   url: string;
 };
@@ -97,7 +96,6 @@ export function getTabs(): Promise<Candidate[]> {
           iconUrlSrcSet: favIconUrl,
           id: NaN,
           kind: 'tabs',
-          kindIconUrl: '',
           title,
           url
         })
@@ -119,7 +117,6 @@ export function getHistories(): Promise<Candidate[]> {
           iconUrlSrcSet: '',
           id: NaN,
           kind: 'histories',
-          kindIconUrl: '',
           title,
           url
         })
@@ -139,7 +136,6 @@ export function getBookmarks(): Promise<Candidate[]> {
           iconUrlSrcSet: '',
           id: NaN,
           kind: 'bookmarks',
-          kindIconUrl: '',
           title,
           url
         })
@@ -159,7 +155,6 @@ export function getTopSites(): Promise<Candidate[]> {
           iconUrlSrcSet: '',
           id: NaN,
           kind: 'mostVisitedURLs',
-          kindIconUrl: '',
           title,
           url
         })

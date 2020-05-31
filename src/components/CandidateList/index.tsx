@@ -20,10 +20,10 @@ export default function CandidateList(props: Props) {
   return (
     <ul className="CandidateList">
       {candidates.map(function(candidate) {
-        const { iconUrlSrcSet, id, kindIconUrl, title, url } = candidate;
+        const { iconUrlSrcSet, id, title, url } = candidate;
 
         return (
-          <li key={iconUrlSrcSet + kindIconUrl + title + url}>
+          <li key={iconUrlSrcSet + title + url}>
             <button
               className={cx('Candidate', {
                 Select: id === selectedId
@@ -37,7 +37,6 @@ export default function CandidateList(props: Props) {
                 width="32"
                 height="32"
               />
-              {/*kindIconUrl*/}
               <div className="Informations">
                 <div className="Title">{title}</div>
                 <div className="Url">{url}</div>
