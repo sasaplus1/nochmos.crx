@@ -5,7 +5,7 @@
   "dependencies": {
     "classnames": "^2.2.6",
     "comlink": "^4.3.0",
-    "fuse.js": "^3.4.6",
+    "fuse.js": "^6.0.0",
     "preact": "^10.3.4",
     "typescript-fsa": "^3.0.0",
     "typescript-fsa-reducers": "^1.2.1"
