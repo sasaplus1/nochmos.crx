@@ -10,13 +10,21 @@ import { Candidate } from './modules/candidates';
  * @param text
  */
 export function fuzzySearch(candidates: Candidate[], text: string) {
-  const fuse = new Fuse(candidates, {
-    // findAllMatches: true,
-    keys: ['title', 'url'],
-    maxPatternLength: 9,
-    // shouldSort: true,
-    useExtendedSearch: true
-  });
+  const keys = ['title', 'url'];
+
+  const index = Fuse.createIndex(keys, candidates);
+
+  const fuse = new Fuse(
+    candidates,
+    {
+      // findAllMatches: true,
+      keys,
+      maxPatternLength: 9,
+      // shouldSort: true,
+      useExtendedSearch: true
+    },
+    index
+  );
 
   return fuse.search(text);
 }
