@@ -1,0 +1,13 @@
+{
+  "extends": [
+    "config:base",
+    ":automergeAll",
+    ":label(renovate)",
+    ":preserveSemverRanges",
+    ":assignee(sasaplus1)",
+    ":timezone(Asia/Tokyo)",
+    "group:babelMonorepo",
+    "group:linters",
+    "group:typescript-eslintMonorepo"
+  ]
+}
