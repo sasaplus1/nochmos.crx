@@ -17,5 +17,8 @@
     "sourceMap": true,
     "strict": true,
     "target": "ESNext"
-  }
+  },
+  "include": [
+    "./src/**/*"
+  ]
 }
