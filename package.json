@@ -57,7 +57,7 @@
   "private": true,
   "scripts": {
     "build": "run-s build:*",
-    "build:css": "postcss ./src/popup.css -o ./lib/popup.css && cp ./lib/popup.css ./.storybook/static/popup.css",
+    "build:css": "postcss ./src/popup.css -o ./lib/popup.css",
     "build:html": "cp ./src/*.html ./lib",
     "build:json": "node -p 'JSON.stringify(require(`./src/manifest`), null, 2)' > ./lib/manifest.json",
     "build:png": "imagemin --out-dir=./lib --plugin=pngquant ./src/*.png",
@@ -71,7 +71,7 @@
     "lint": "run-s lint:*",
     "lint:css": "stylelint --cache ./**/*.css",
     "lint:js": "eslint --cache --ext .js,.jsx,.ts,.tsx .",
-    "prestorybook": "run-s build:css",
+    "prestorybook": "postcss ./src/popup.css -o ./.storybook/static/popup.css",
     "release": "zip -j ./nochmos.zip ./lib/*",
     "storybook": "start-storybook --static-dir ./.storybook/static",
     "watch": "run-p -l watch:*",
