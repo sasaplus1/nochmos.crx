@@ -130,7 +130,9 @@ function Popup() {
       const fuzzySearch = Comlink.wrap<import('./worker').exports>(worker);
 
       const filteredCandidates = await fuzzySearch(candidates, text);
-      const slicedCandidates = filteredCandidates.slice(0, 9);
+      const slicedCandidates = filteredCandidates
+        .slice(0, 9)
+        .map(candidate => candidate.item);
 
       setPopupCandidates(slicedCandidates);
 
