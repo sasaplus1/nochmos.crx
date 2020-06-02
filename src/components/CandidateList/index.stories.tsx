@@ -6,7 +6,7 @@ import Component from './index';
 
 export default { decorators: [withKnobs], title: Component.name };
 
-export function Base() {
+export function Base(): h.JSX.Element {
   return (
     <Component
       candidates={object('candidates', [

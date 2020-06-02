@@ -165,7 +165,9 @@ export function getTopSites(): Promise<Candidate[]> {
   });
 }
 
-export async function updateCandidates(dispatch: (action: AnyAction) => void) {
+export async function updateCandidates(
+  dispatch: (action: AnyAction) => void
+): Promise<void> {
   const results = await Promise.all([
     getTopSites(),
     getTabs(),

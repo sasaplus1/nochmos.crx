@@ -13,7 +13,7 @@ export type Props = {
   selectedCandidate: CandidateListProps['selectedCandidate'];
 };
 
-export default function PopupPage(props: Props) {
+export default function PopupPage(props: Props): h.JSX.Element {
   const {
     candidates,
     onClickCandidate,

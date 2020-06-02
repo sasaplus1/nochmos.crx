@@ -5,7 +5,7 @@ export type Props = {
   onKeyDown: h.JSX.KeyboardEventHandler<HTMLInputElement>;
 };
 
-export default function QueryInput(props: Props) {
+export default function QueryInput(props: Props): h.JSX.Element {
   const { onInput, onKeyDown } = props;
 
   return (

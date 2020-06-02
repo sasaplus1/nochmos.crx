@@ -12,7 +12,7 @@ export type Props = {
   selectedCandidate: Candidate | null;
 };
 
-export default function CandidateList(props: Props) {
+export default function CandidateList(props: Props): h.JSX.Element {
   const { candidates, onClick, selectedCandidate } = props;
 
   const { id: selectedId } = selectedCandidate || { id: NaN };

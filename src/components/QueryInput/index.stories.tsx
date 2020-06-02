@@ -5,7 +5,7 @@ import Component from './index';
 
 export default { title: Component.name };
 
-export function Base() {
+export function Base(): h.JSX.Element {
   return (
     <Component onInput={action('onInput')} onKeyDown={action('onKeyDown')} />
   );

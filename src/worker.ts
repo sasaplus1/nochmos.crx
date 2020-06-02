@@ -9,7 +9,10 @@ import { Candidate } from './modules/candidates';
  * @param candidates
  * @param text
  */
-export function fuzzySearch(candidates: Candidate[], text: string) {
+export function fuzzySearch(
+  candidates: Candidate[],
+  text: string
+): Fuse.FuseResult<Candidate>[] {
   const keys = ['title', 'url'];
 
   const index = Fuse.createIndex(keys, candidates);
