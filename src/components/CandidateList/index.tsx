@@ -19,7 +19,7 @@ export default function CandidateList(props: Props) {
 
   return (
     <ul className="CandidateList">
-      {candidates.map(function(candidate) {
+      {candidates.map(function (candidate) {
         const { iconUrlSrcSet, id, title, url } = candidate;
 
         return (
@@ -29,7 +29,7 @@ export default function CandidateList(props: Props) {
                 Select: id === selectedId
               })}
               type="button"
-              onClick={event => onClick(candidate, event)}
+              onClick={(event) => onClick(candidate, event)}
             >
               <img
                 className="Icon"

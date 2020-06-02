@@ -31,7 +31,7 @@ async function openUrl(url: string) {
     }
   };
 
-  await new Promise(resolve =>
+  await new Promise((resolve) =>
     chrome.runtime.sendMessage(openUrlAction, resolve)
   );
 }
@@ -48,7 +48,7 @@ function getPrevCandidate(
   candidates: Candidate[]
 ) {
   const index = candidates.findIndex(
-    candidate => candidate.id === currentCandidate.id
+    (candidate) => candidate.id === currentCandidate.id
   );
 
   if (index <= 0) {
@@ -70,7 +70,7 @@ function getNextCandidate(
   candidates: Candidate[]
 ) {
   const index = candidates.findIndex(
-    candidate => candidate.id === currentCandidate.id
+    (candidate) => candidate.id === currentCandidate.id
   );
 
   if (index >= candidates.length) {
@@ -92,20 +92,20 @@ function Popup() {
     candidates.slice(0, 9)
   );
 
-  useEffect(function() {
+  useEffect(function () {
     updateCandidates(dispatch);
   }, []);
 
-  const onClickCandidate = useCallback(function(candidate: Candidate) {
+  const onClickCandidate = useCallback(function (candidate: Candidate) {
     const { url } = candidate;
 
-    openUrl(url).then(function() {
+    openUrl(url).then(function () {
       window.close();
     });
   }, []);
 
   const onInputQuery = useCallback(
-    async function(event: h.JSX.TargetedEvent<HTMLInputElement>) {
+    async function (event: h.JSX.TargetedEvent<HTMLInputElement>) {
       const text = event.currentTarget.value;
 
       // remove candidates if text is empty
@@ -132,7 +132,7 @@ function Popup() {
       const filteredCandidates = await fuzzySearch(candidates, text);
       const slicedCandidates = filteredCandidates
         .slice(0, 9)
-        .map(candidate => candidate.item);
+        .map((candidate) => candidate.item);
 
       setPopupCandidates(slicedCandidates);
 
@@ -144,7 +144,7 @@ function Popup() {
   );
 
   const onKeyDownInInput = useCallback(
-    function(event: h.JSX.TargetedKeyboardEvent<HTMLInputElement>) {
+    function (event: h.JSX.TargetedKeyboardEvent<HTMLInputElement>) {
       const { altKey, ctrlKey, isComposing, key, metaKey, shiftKey } = event;
 
       if (isComposing) {
@@ -159,7 +159,7 @@ function Popup() {
         if (selectedCandidate) {
           const { url } = selectedCandidate;
 
-          openUrl(url).then(function() {
+          openUrl(url).then(function () {
             window.close();
           });
         }
