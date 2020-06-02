@@ -6,6 +6,10 @@
 
 fuzzy find from some sources
 
+## Installation
+
+Download crx file from [latest release](https://github.com/sasaplus1/nochmos.crx/releases/latest).
+
 ## License
 
 The MIT license.
