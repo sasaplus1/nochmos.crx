@@ -1,4 +1,4 @@
-module.exports = function(context) {
+module.exports = function (context) {
   const isProduction = context.env === 'production';
   const isDevelopment = !isProduction;
 

@@ -42,16 +42,16 @@ export const initialState: State = {
 };
 
 const reducer = reducerWithInitialState(initialState)
-  .case(clearCandidatesAction, function() {
+  .case(clearCandidatesAction, function () {
     return {
       candidates: [],
       selectedCandidate: null
     };
   })
-  .case(updateCandidatesAction, function(state, payload) {
+  .case(updateCandidatesAction, function (state, payload) {
     const { candidates } = payload;
 
-    const convertedCandidates = candidates.map(candidate => ({
+    const convertedCandidates = candidates.map((candidate) => ({
       ...candidate,
       id: NaN
     }));
@@ -72,10 +72,10 @@ const reducer = reducerWithInitialState(initialState)
       selectedCandidate: state.selectedCandidate
     };
   })
-  .case(updateSelectedCandidateAction, function(state, payload) {
+  .case(updateSelectedCandidateAction, function (state, payload) {
     const { id } = payload;
 
-    const candidate = state.candidates.find(candidate => candidate.id === id);
+    const candidate = state.candidates.find((candidate) => candidate.id === id);
 
     return {
       candidates: state.candidates,
@@ -88,9 +88,9 @@ export default reducer;
 /* side effects */
 
 export function getTabs(): Promise<Candidate[]> {
-  return new Promise(function(resolve) {
+  return new Promise(function (resolve) {
     // get tabs
-    chrome.tabs.query({}, function(tabs) {
+    chrome.tabs.query({}, function (tabs) {
       const candidates: Candidate[] = tabs.map(
         ({ favIconUrl = '', title = '', url = '' }) => ({
           iconUrlSrcSet: favIconUrl,
@@ -107,9 +107,9 @@ export function getTabs(): Promise<Candidate[]> {
 }
 
 export function getHistories(): Promise<Candidate[]> {
-  return new Promise(function(resolve) {
+  return new Promise(function (resolve) {
     // get histories
-    chrome.history.search({ text: '', startTime: 0, maxResults: 0 }, function(
+    chrome.history.search({ text: '', startTime: 0, maxResults: 0 }, function (
       historyItems
     ) {
       const candidates: Candidate[] = historyItems.map(
@@ -128,9 +128,9 @@ export function getHistories(): Promise<Candidate[]> {
 }
 
 export function getBookmarks(): Promise<Candidate[]> {
-  return new Promise(function(resolve) {
+  return new Promise(function (resolve) {
     // get bookmarks
-    chrome.bookmarks.search({ url: '' }, function(bookmarkTreeNodes) {
+    chrome.bookmarks.search({ url: '' }, function (bookmarkTreeNodes) {
       const candidates: Candidate[] = bookmarkTreeNodes.map(
         ({ title = '', url = '' }) => ({
           iconUrlSrcSet: '',
@@ -147,9 +147,9 @@ export function getBookmarks(): Promise<Candidate[]> {
 }
 
 export function getTopSites(): Promise<Candidate[]> {
-  return new Promise(function(resolve) {
+  return new Promise(function (resolve) {
     // get most visited URLs
-    chrome.topSites.get(function(mostVisitedURLs) {
+    chrome.topSites.get(function (mostVisitedURLs) {
       const candidates: Candidate[] = mostVisitedURLs.map(
         ({ title = '', url = '' }) => ({
           iconUrlSrcSet: '',
