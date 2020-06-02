@@ -21,20 +21,7 @@ module.exports = {
       ],
       files: ['**/*.ts', '**/*.tsx'],
       parser: '@typescript-eslint/parser',
-      plugins: ['@typescript-eslint'],
-      settings: {
-        node: {
-          allowModules: [
-            '@storybook/addon-actions',
-            '@storybook/addon-knobs',
-            'preact'
-          ],
-          tryExtensions: ['.tsx', '.ts', '.jsx', '.js', '.json', '.node']
-        },
-        react: {
-          pragma: 'h'
-        }
-      }
+      plugins: ['@typescript-eslint']
     },
     {
       files: ['rollup.config.js'],
@@ -48,5 +35,19 @@ module.exports = {
     ecmaVersion: 2019,
     sourceType: 'module'
   },
-  root: true
+  root: true,
+  settings: {
+    node: {
+      allowModules: [
+        '@storybook/addon-actions',
+        '@storybook/addon-knobs',
+        'preact'
+      ],
+      tryExtensions: ['.tsx', '.ts', '.jsx', '.js', '.json', '.node']
+    },
+    react: {
+      pragma: 'h',
+      version: 'detect'
+    }
+  }
 };
