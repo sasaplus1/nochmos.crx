@@ -1,6 +1,7 @@
 {
   "browserslist": [
-    "last 3 Chrome versions"
+    "last 3 Chrome versions",
+    "last 3 Firefox versions"
   ],
   "dependencies": {
     "classnames": "^2.2.6",
