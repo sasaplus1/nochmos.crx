@@ -19,6 +19,9 @@ module.exports = {
         'plugin:prettier/recommended',
         'prettier/@typescript-eslint'
       ],
+      env: {
+        webextensions: true
+      },
       files: ['**/*.ts', '**/*.tsx'],
       parser: '@typescript-eslint/parser',
       plugins: ['@typescript-eslint']

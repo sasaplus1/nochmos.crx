@@ -138,7 +138,9 @@ function Popup() {
 
       const [selectedCandidate] = slicedCandidates;
 
-      dispatch(updateSelectedCandidateAction(selectedCandidate));
+      if (selectedCandidate) {
+        dispatch(updateSelectedCandidateAction(selectedCandidate));
+      }
     },
     [candidates]
   );
@@ -179,7 +181,9 @@ function Popup() {
           popupCandidates
         );
 
-        dispatch(updateSelectedCandidateAction(nextCandidate));
+        if (nextCandidate) {
+          dispatch(updateSelectedCandidateAction(nextCandidate));
+        }
 
         return;
       }
@@ -196,7 +200,9 @@ function Popup() {
           popupCandidates
         );
 
-        dispatch(updateSelectedCandidateAction(prevCandidate));
+        if (prevCandidate) {
+          dispatch(updateSelectedCandidateAction(prevCandidate));
+        }
 
         return;
       }

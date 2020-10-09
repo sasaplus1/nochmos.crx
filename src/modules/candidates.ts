@@ -1,5 +1,9 @@
-import actionCreatorFactory, { AnyAction } from 'typescript-fsa';
+import { actionCreatorFactory, AnyAction } from 'typescript-fsa';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
+
+/* environment */
+
+const isFirefox = typeof browser !== 'undefined';
 
 /* types */
 
@@ -108,10 +112,11 @@ export function getTabs(): Promise<Candidate[]> {
 
 export function getHistories(): Promise<Candidate[]> {
   return new Promise(function (resolve) {
+    const query = isFirefox
+      ? { text: '' }
+      : { text: '', startTime: 0, maxResults: 0 };
     // get histories
-    chrome.history.search({ text: '', startTime: 0, maxResults: 0 }, function (
-      historyItems
-    ) {
+    chrome.history.search(query, function (historyItems) {
       const candidates: Candidate[] = historyItems.map(
         ({ title = '', url = '' }) => ({
           iconUrlSrcSet: '',
@@ -129,8 +134,10 @@ export function getHistories(): Promise<Candidate[]> {
 
 export function getBookmarks(): Promise<Candidate[]> {
   return new Promise(function (resolve) {
+    const query = isFirefox ? {} : { url: '' };
+
     // get bookmarks
-    chrome.bookmarks.search({ url: '' }, function (bookmarkTreeNodes) {
+    chrome.bookmarks.search(query, function (bookmarkTreeNodes) {
       const candidates: Candidate[] = bookmarkTreeNodes.map(
         ({ title = '', url = '' }) => ({
           iconUrlSrcSet: '',
