@@ -63,7 +63,7 @@
     "build:png": "imagemin ./src/*.png --out-dir=./lib --plugin=pngquant",
     "build:svg": "imagemin ./src/*.svg --out-dir=./lib --plugin=svgo",
     "build:ts": "rollup -c",
-    "check-types": "tsc --jsx react --incremental --noEmit",
+    "check-types": "tsc --jsx react --noEmit",
     "fix": "run-s fix:*",
     "fix:css": "stylelint --cache --fix ./**/*.css",
     "fix:js": "eslint --cache --ext .js,.jsx,.ts,.tsx --fix .",
