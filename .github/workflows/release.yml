@@ -7,7 +7,7 @@ on:
 
 jobs:
   release:
-    name: build crx and zip
+    name: build crx and xpi
     strategy:
       matrix:
         node:
@@ -16,12 +16,12 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - run: sudo apt update --yes
-      - run: sudo apt install --yes xvfb
+      - run: sudo apt --yes update
+      - run: sudo apt --yes install xvfb
       - id: get_version
         run: echo "::set-output name=version::${GITHUB_REF/refs\/tags\//}"
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v2-beta
         with:
           node-version: ${{ matrix.node }}
       - id: yarn-cache-dir-path
@@ -38,14 +38,12 @@ jobs:
       - run: yarn run release
       - uses: actions/upload-artifact@master
         with:
-          name: nochmos.zip
-          path: nochmos.zip
-      - run: xvfb-run --auto-servernum google-chrome --pack-extension=./lib
-      - run: mv lib.crx nochmos.crx
-      - uses: actions/upload-artifact@master
-        with:
           name: nochmos.crx
           path: nochmos.crx
+      - uses: actions/upload-artifact@master
+        with:
+          name: nochmos.xpi
+          path: nochmos.xpi
       - id: create_release
         uses: actions/create-release@v1.1.4
         with:
@@ -54,12 +52,12 @@ jobs:
       - uses: actions/upload-release-asset@v1.0.2
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: nochmos.zip
-          asset_name: nochmos.zip
+          asset_path: nochmos.crx
+          asset_name: nochmos.crx
           asset_content_type: application/zip
       - uses: actions/upload-release-asset@v1.0.2
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: nochmos.crx
-          asset_name: nochmos.crx
+          asset_path: nochmos.xpi
+          asset_name: nochmos.xpi
           asset_content_type: application/zip
