@@ -1,7 +1,7 @@
 module.exports = {
   manifest_version: 2,
   name: 'nochmos',
-  version: '1.0.0',
+  version: '1.0.1',
   description: 'fuzzy find from some sources',
   applications: {
     gecko: {
