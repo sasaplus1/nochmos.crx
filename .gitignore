@@ -118,3 +118,9 @@ nochmos.zip
 
 lib/*
 !lib/.gitkeep
+
+crx/*
+!crx/.gitkeep
+
+xpi/*
+!xpi/.gitkeep
