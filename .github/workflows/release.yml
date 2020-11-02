@@ -35,11 +35,13 @@ jobs:
             ${{ runner.os }}-yarn-
       - run: yarn install --frozen-lockfile
       - run: yarn run build
-      - run: yarn run release
+      - run: xvfb-run --auto-servernum google-chrome --pack-extension=./crx
+      - run: mv crx.crx nochmos.crx
       - uses: actions/upload-artifact@master
         with:
           name: nochmos.crx
           path: nochmos.crx
+      - run: yarn run release:xpi
       - uses: actions/upload-artifact@master
         with:
           name: nochmos.xpi
