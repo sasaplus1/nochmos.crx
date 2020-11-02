@@ -1,7 +1,7 @@
 module.exports = {
   manifest_version: 2,
   name: 'nochmos',
-  version: '1.0.1',
+  version: '1.0.2',
   description: 'fuzzy find from some sources',
   icons: {
     '16': 'icon_16.png',
